@@ -1,0 +1,25 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1586862719912.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1056568339",
+    "id" : "784AA61F",
+    "lastKnownWriteTime" : 1587304000,
+    "last_content_update" : 1587304000296,
+    "path" : "E:/Fiverr/Clients/Rishikasharm941/Project RIshika 1.0/RGENERATEPREC 1.0.R",
+    "project_path" : "RGENERATEPREC 1.0.R",
+    "properties" : {
+        "cursorPosition" : "169,21",
+        "scrollLine" : "159"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 5,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
