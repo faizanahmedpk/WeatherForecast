@@ -208,7 +208,9 @@
    dw$season[dw$month %in% c(6,7,8)] <-  "3.JJA"
    dw$season[dw$month %in% c(9,10,11)] <-  "4.SON"  
    
-   qqdw <- split(dw,f=paste(dw$spell_state,dw$station,dw$season,sep="_")) %>% lapply(FUN=function(x){list(obs=x$spell_length[x$variable=="obs"],gen=x$spell_length[x$variable=="gen"])}) %>% lapply(FUN=qqplot_) %>% melt(id=c("obs","gen"))
+   qqdw <- split(dw,f=paste(dw$spell_state,dw$station,dw$season,sep="_")) %>% 
+      lapply(FUN=function(x){list(obs=x$spell_length[x$variable=="obs"],gen=x$spell_length[x$variable=="gen"])}) %>% 
+      lapply(FUN=qqplot_) %>% melt(id=c("obs","gen"))
    
    qqdw_add <- str_split(qqdw$L1,pattern="_") %>% do.call(what=rbind) %>% as.data.frame()
    names(qqdw_add) <- c("state","station","season")
@@ -405,16 +407,16 @@
    names(df)
    
    # ---- station T36133
-   df_T36133 <- df[df$obs.T36133>valmin, c("obs.T36133","date","month", "season")] 
+   df_obs.T36133 <- df[df$obs.T36133>valmin, c("obs.T36133","date","month", "season")] 
    color_month <-  rep(c("#E6352F","#34A74B","#3D79F3" ),4)[c(12,1:11)]
    
-   gdens_T36133 <- ggplot(data=df_T36133)+
+   gdens_obs.T36133 <- ggplot(data=df_obs.T36133)+
      geom_density(aes(x=obs.T36133,color=month,group=month),trim=TRUE)+
      facet_grid(season ~ .)+
      theme_bw() + 
      scale_color_manual(values = color_month)
-   ggsave("gdens_T36133.png")
-   show(gdens_T36133)
+   ggsave("gdens_obs.T36133.png")
+   show(gdens_obs.T36133)
    
    # ---- station T36137
    df_obs.T36137 <- df[df$obs.T36137>valmin, c("obs.T36137","date","month", "season")] 
@@ -537,13 +539,319 @@
    
    #install.packages("lmom")
    
-   #library(lmom)
+   library(lmom)
    
-   #prec_val_m_T36137 <- df_obs.T36137$obs.T36137 %>% split(df_obs.T36137$month) 
-   #lmoms <- prec_val_m_T36137 %>% lapply(FUN=samlmu) 
    
-   #params <- lmoms %>% lapply(FUN=pelln3,bound=valmin) 
-   #kstest <-params %>% mapply(FUN=ks.test,x=prec_val_m_T36137,y="cdfln3",SIMPLIFY=FALSE) 
-   #kstest
+   
+   # station T36133
+   prec_val_m_T36133 <- df_obs.T36133$obs.T36133 %>% split(df_obs.T36133$month) 
+   lmoms_T36133 <- prec_val_m_T36133 %>% lapply(FUN=samlmu) 
+   
+   params_T36133 <- lmoms_T36133 %>% lapply(FUN=pelln3,bound=valmin) 
+   kstest_T36133 <-params_T36133 %>% mapply(FUN=ks.test,x=prec_val_m_T36133,y="cdfln3",SIMPLIFY=FALSE) 
+   kstest_T36133
+   
+   
+   
+   
+   
+   # station T36137
+   prec_val_m_T36137 <- df_obs.T36137$obs.T36137 %>% split(df_obs.T36137$month) 
+   lmoms_T36137 <- prec_val_m_T36137 %>% lapply(FUN=samlmu) 
+   
+   params_T36137 <- lmoms_T36137 %>% lapply(FUN=pelln3,bound=valmin) 
+   kstest_T36137 <-params_T36137 %>% mapply(FUN=ks.test,x=prec_val_m_T36137,y="cdfln3",SIMPLIFY=FALSE) 
+   kstest_T36137
+   
+   
+   # station T44040
+   prec_val_m_T44040 <- df_obs.T44040$obs.T44040 %>% split(df_obs.T44040$month) 
+   lmoms_T44040 <- prec_val_m_T44040 %>% lapply(FUN=samlmu) 
+   
+   params_T44040 <- lmoms_T44040 %>% lapply(FUN=pelln3,bound=valmin) 
+   kstest_T44040 <-params_T44040 %>% mapply(FUN=ks.test,x=prec_val_m_T44040,y="cdfln3",SIMPLIFY=FALSE) 
+   kstest_T44040
+   
+   
+   
+   # station T44120
+   prec_val_m_T44120 <- df_obs.T44120$obs.T44120 %>% split(df_obs.T44120$month) 
+   lmoms_T44120 <- prec_val_m_T44120 %>% lapply(FUN=samlmu) 
+   
+   params_T44120 <- lmoms_T44120 %>% lapply(FUN=pelln3,bound=valmin) 
+   kstest_T44120 <-params_T44120 %>% mapply(FUN=ks.test,x=prec_val_m_T44120,y="cdfln3",SIMPLIFY=FALSE) 
+   kstest_T44120
+   
+   
+   # station T45000
+   prec_val_m_T45000 <- df_obs.T45000$obs.T45000 %>% split(df_obs.T45000$month) 
+   lmoms_T45000 <- prec_val_m_T45000 %>% lapply(FUN=samlmu) 
+   
+   params_T45000 <- lmoms_T45000 %>% lapply(FUN=pelln3,bound=valmin) 
+   kstest_T45000 <-params_T45000 %>% mapply(FUN=ks.test,x=prec_val_m_T45000,y="cdfln3",SIMPLIFY=FALSE) 
+   kstest_T45000
+   
+   
+   # station T45001
+   prec_val_m_T45001 <- df_obs.T45001$obs.T45001 %>% split(df_obs.T45001$month) 
+   lmoms_T45001 <- prec_val_m_T45001 %>% lapply(FUN=samlmu) 
+   
+   params_T45001 <- lmoms_T45001 %>% lapply(FUN=pelln3,bound=valmin) 
+   kstest_T45001 <-params_T45001 %>% mapply(FUN=ks.test,x=prec_val_m_T45001,y="cdfln3",SIMPLIFY=FALSE) 
+   kstest_T45001
+   
+   
+   # station T45002
+   prec_val_m_T45002 <- df_obs.T45002$obs.T45002 %>% split(df_obs.T45002$month) 
+   lmoms_T45002 <- prec_val_m_T45002 %>% lapply(FUN=samlmu) 
+   
+   params_T45002 <- lmoms_T45002 %>% lapply(FUN=pelln3,bound=valmin) 
+   kstest_T45002 <-params_T45002 %>% mapply(FUN=ks.test,x=prec_val_m_T45002,y="cdfln3",SIMPLIFY=FALSE) 
+   kstest_T45002
+   
+   
+   # station T45003
+   prec_val_m_T45003 <- df_obs.T45003$obs.T45003 %>% split(df_obs.T45003$month) 
+   lmoms_T45003 <- prec_val_m_T45003 %>% lapply(FUN=samlmu) 
+   
+   params_T45003 <- lmoms_T45003 %>% lapply(FUN=pelln3,bound=valmin) 
+   kstest_T45003 <-params_T45003 %>% mapply(FUN=ks.test,x=prec_val_m_T45003,y="cdfln3",SIMPLIFY=FALSE) 
+   kstest_T45003
+   
+   
+   # station T45004
+   prec_val_m_T45004 <- df_obs.T45004$obs.T45004 %>% split(df_obs.T45004$month) 
+   lmoms_T45004 <- prec_val_m_T36137 %>% lapply(FUN=samlmu) 
+   
+   params_T45004 <- lmoms_T45004 %>% lapply(FUN=pelln3,bound=valmin) 
+   kstest_T45004 <-params_T45004 %>% mapply(FUN=ks.test,x=prec_val_m_T45004,y="cdfln3",SIMPLIFY=FALSE) 
+   kstest_T45004
+   
+   
+   # station T45007
+   prec_val_m_T45007 <- df_obs.T45007$obs.T45007 %>% split(df_obs.T45007$month) 
+   lmoms_T45007 <- prec_val_m_T45007 %>% lapply(FUN=samlmu) 
+   
+   params_T45007 <- lmoms_T45007 %>% lapply(FUN=pelln3,bound=valmin) 
+   kstest_T45007 <-params_T45007 %>% mapply(FUN=ks.test,x=prec_val_m_T45007,y="cdfln3",SIMPLIFY=FALSE) 
+   kstest_T45007
+   
+   
+   
+   
+   
+   
+   
+   modify_lmoments <- function(x){x[2] <- x[2]*1.3; return(x)}
+   paraml <- function(x,valmin) {
+      ip <- which(x>=valmin)
+      x <- x[ip] 
+      out <- list()
+      lmomx <- samlmu(x)
+      out$obs <- pelln3(lmom=lmomx,bound=valmin)
+      lmomx_m <- modify_lmoments(lmomx)
+      out$mod  <- pelln3(lmom=lmomx_m,bound=valmin)
+      return(out)
+   }
+   
+   modify_distribution <- function(x,paraml,valmin){
+      
+      out <- x
+      ip <- which(x>=valmin)
+      out[ip] <- x[ip] %>% cdfln3(para=paraml$obs) %>% qualn3(para=paraml$mod)
+      return(out)
+      
+   }
+   
+   
+   # station T36133
+   para_monthly_T36133 <- df_obs.T36133$obs.T36133 %>% split(df_obs.T36133$month) %>% lapply(FUN=paraml,valmin=valmin)
+   df_obs.T36133$bs_mod <- df_obs.T36133$obs.T36133
+   
+   for (mo in unique(df_obs.T36133$month))  {
+      im <- which(df_obs.T36133$month==mo)
+      
+      df$obs_mod[im] <- modify_distribution(x=df_obs.T36133$obs.T36133s[im],paraml=para_monthly_T36133[[mo]],valmin=valmin)
+   }
+   
+   color_month <-  rep(c("#E6352F","#34A74B","#3D79F3" ),4)[c(12,1:11)]
+   gg_T36133 <- ggplot()+
+      geom_line(data=df_obs.T36133,mapping=aes(x=obs.T36133,y=bs_mod,col=month))+facet_grid(. ~ season)+theme_bw()
+   gg_T36133 <- gg_T36133 +scale_color_manual(values = color_month)
+   ggsave("gg_T36133.png", width = 8)
+   show(gg_T36133)
+   
+   
+   
+   
+   # station T36137
+   para_monthly_T36137 <- df_obs.T36137$obs.T36137 %>% split(df_obs.T36137$month) %>% lapply(FUN=paraml,valmin=valmin)
+   df_obs.T36137$bs_mod <- df_obs.T36137$obs.T36137
+   
+   for (mo in unique(df_obs.T36137$month))  {
+      im <- which(df_obs.T36137$month==mo)
+      
+      df$obs_mod[im] <- modify_distribution(x=df_obs.T36137$obs.T36137s[im],paraml=para_monthly_T36137[[mo]],valmin=valmin)
+   }
+   
+   color_month <-  rep(c("#E6352F","#34A74B","#3D79F3" ),4)[c(12,1:11)]
+   gg_T36137 <- ggplot()+
+      geom_line(data=df_obs.T36137,mapping=aes(x=obs.T36137,y=bs_mod,col=month))+facet_grid(. ~ season)+theme_bw()
+   gg_T36137 <- gg_T36137 +scale_color_manual(values = color_month)
+   ggsave("gg_T36137.png", width = 8)
+   show(gg_T36137)
+   
+   
+   
+   # station T44040
+   para_monthly_T44040 <- df_obs.T44040$obs.T44040 %>% split(df_obs.T44040$month) %>% lapply(FUN=paraml,valmin=valmin)
+   df_obs.T44040$bs_mod <- df_obs.T44040$obs.T44040
+   
+   for (mo in unique(df_obs.T44040$month))  {
+      im <- which(df_obs.T44040$month==mo)
+      
+      df$obs_mod[im] <- modify_distribution(x=df_obs.T44040$obs.T44040s[im],paraml=para_monthly_T44040[[mo]],valmin=valmin)
+   }
+   
+   color_month <-  rep(c("#E6352F","#34A74B","#3D79F3" ),4)[c(12,1:11)]
+   gg_T44040 <- ggplot()+
+      geom_line(data=df_obs.T44040,mapping=aes(x=obs.T44040,y=bs_mod,col=month))+facet_grid(. ~ season)+theme_bw()
+   gg_T44040 <- gg_T44040 +scale_color_manual(values = color_month)
+   ggsave("gg_T44040.png", width = 8)
+   show(gg_T44040)
+   
+   
+   # station T44120
+   para_monthly_T44120 <- df_obs.T44120$obs.T44120 %>% split(df_obs.T44120$month) %>% lapply(FUN=paraml,valmin=valmin)
+   df_obs.T44120$bs_mod <- df_obs.T44120$obs.T44120
+   
+   for (mo in unique(df_obs.T44120$month))  {
+      im <- which(df_obs.T44120$month==mo)
+      
+      df$obs_mod[im] <- modify_distribution(x=df_obs.T44120$obs.T44120s[im],paraml=para_monthly_T44120[[mo]],valmin=valmin)
+   }
+   
+   color_month <-  rep(c("#E6352F","#34A74B","#3D79F3" ),4)[c(12,1:11)]
+   gg_T44120 <- ggplot()+
+      geom_line(data=df_obs.T44120,mapping=aes(x=obs.T44120,y=bs_mod,col=month))+facet_grid(. ~ season)+theme_bw()
+   gg_T44120 <- gg_T44120 +scale_color_manual(values = color_month)
+   ggsave("gg_T44120.png", width = 8)
+   show(gg_T44120)
+   
+   
+   # station T45000
+   para_monthly_T45000 <- df_obs.T45000$obs.T45000 %>% split(df_obs.T45000$month) %>% lapply(FUN=paraml,valmin=valmin)
+   df_obs.T45000$bs_mod <- df_obs.T45000$obs.T45000
+   
+   for (mo in unique(df_obs.T45000$month))  {
+      im <- which(df_obs.T45000$month==mo)
+      
+      df$obs_mod[im] <- modify_distribution(x=df_obs.T45000$obs.T45000s[im],paraml=para_monthly_T45000[[mo]],valmin=valmin)
+   }
+   
+   color_month <-  rep(c("#E6352F","#34A74B","#3D79F3" ),4)[c(12,1:11)]
+   gg_T45000 <- ggplot()+
+      geom_line(data=df_obs.T45000,mapping=aes(x=obs.T45000,y=bs_mod,col=month))+facet_grid(. ~ season)+theme_bw()
+   gg_T45000 <- gg_T45000 +scale_color_manual(values = color_month)
+   ggsave("gg_T45000.png", width = 8)
+   show(gg_T45000)
+   
+   
+   # station T45001
+   para_monthly_T45001 <- df_obs.T45001$obs.T45001 %>% split(df_obs.T45001$month) %>% lapply(FUN=paraml,valmin=valmin)
+   df_obs.T45001$bs_mod <- df_obs.T45001$obs.T45001
+   
+   for (mo in unique(df_obs.T45001$month))  {
+      im <- which(df_obs.T45001$month==mo)
+      
+      df$obs_mod[im] <- modify_distribution(x=df_obs.T45001$obs.T45001s[im],paraml=para_monthly_T45001[[mo]],valmin=valmin)
+   }
+   
+   color_month <-  rep(c("#E6352F","#34A74B","#3D79F3" ),4)[c(12,1:11)]
+   gg_T45001 <- ggplot()+
+      geom_line(data=df_obs.T45001,mapping=aes(x=obs.T45001,y=bs_mod,col=month))+facet_grid(. ~ season)+theme_bw()
+   gg_T45001 <- gg_T45001 +scale_color_manual(values = color_month)
+   ggsave("gg_T45001.png", width = 8)
+   show(gg_T45001)
+   
+   
+   # station T45002
+   para_monthly_T45002 <- df_obs.T45002$obs.T45002 %>% split(df_obs.T45002$month) %>% lapply(FUN=paraml,valmin=valmin)
+   df_obs.T45002$bs_mod <- df_obs.T45002$obs.T45002
+   
+   for (mo in unique(df_obs.T45002$month))  {
+      im <- which(df_obs.T45002$month==mo)
+      
+      df$obs_mod[im] <- modify_distribution(x=df_obs.T45002$obs.T45002s[im],paraml=para_monthly_T45002[[mo]],valmin=valmin)
+   }
+   
+   color_month <-  rep(c("#E6352F","#34A74B","#3D79F3" ),4)[c(12,1:11)]
+   gg_T45002 <- ggplot()+
+      geom_line(data=df_obs.T45002,mapping=aes(x=obs.T45002,y=bs_mod,col=month))+facet_grid(. ~ season)+theme_bw()
+   gg_T45002 <- gg_T45002 +scale_color_manual(values = color_month)
+   ggsave("gg_T45002.png", width = 8)
+   show(gg_T45002)
+   
+   
+   # station T45003
+   para_monthly_T45003 <- df_obs.T45003$obs.T45003 %>% split(df_obs.T45003$month) %>% lapply(FUN=paraml,valmin=valmin)
+   df_obs.T45003$bs_mod <- df_obs.T45003$obs.T45003
+   
+   for (mo in unique(df_obs.T45003$month))  {
+      im <- which(df_obs.T45003$month==mo)
+      
+      df$obs_mod[im] <- modify_distribution(x=df_obs.T45003$obs.T45003s[im],paraml=para_monthly_T45003[[mo]],valmin=valmin)
+   }
+   
+   color_month <-  rep(c("#E6352F","#34A74B","#3D79F3" ),4)[c(12,1:11)]
+   gg_T45003 <- ggplot()+
+      geom_line(data=df_obs.T45003,mapping=aes(x=obs.T45003,y=bs_mod,col=month))+facet_grid(. ~ season)+theme_bw()
+   gg_T45003 <- gg_T45003 +scale_color_manual(values = color_month)
+   ggsave("gg_T45003.png", width = 8)
+   show(gg_T45003)
+   
+   
+   # station T45004
+   para_monthly_T45004 <- df_obs.T45004$obs.T45004 %>% split(df_obs.T45004$month) %>% lapply(FUN=paraml,valmin=valmin)
+   df_obs.T45004$bs_mod <- df_obs.T45004$obs.T45004
+   
+   for (mo in unique(df_obs.T45004$month))  {
+      im <- which(df_obs.T45004$month==mo)
+      
+      df$obs_mod[im] <- modify_distribution(x=df_obs.T45004$obs.T45004s[im],paraml=para_monthly_T45004[[mo]],valmin=valmin)
+   }
+   
+   color_month <-  rep(c("#E6352F","#34A74B","#3D79F3" ),4)[c(12,1:11)]
+   gg_T45004 <- ggplot()+
+      geom_line(data=df_obs.T45004,mapping=aes(x=obs.T45004,y=bs_mod,col=month))+facet_grid(. ~ season)+theme_bw()
+   gg_T45004 <- gg_T45004 +scale_color_manual(values = color_month)
+   ggsave("gg_T45004.png", width = 8)
+   show(gg_T45004)
+   
+   
+   # station T45007
+   para_monthly_T45007 <- df_obs.T45007$obs.T45007 %>% split(df_obs.T45007$month) %>% lapply(FUN=paraml,valmin=valmin)
+   df_obs.T45007$bs_mod <- df_obs.T45007$obs.T45007
+   
+   for (mo in unique(df_obs.T45007$month))  {
+      im <- which(df_obs.T45007$month==mo)
+      
+      df$obs_mod[im] <- modify_distribution(x=df_obs.T45007$obs.T45007s[im],paraml=para_monthly_T45007[[mo]],valmin=valmin)
+   }
+   
+   color_month <-  rep(c("#E6352F","#34A74B","#3D79F3" ),4)[c(12,1:11)]
+   gg_T45007 <- ggplot()+
+      geom_line(data=df_obs.T45007,mapping=aes(x=obs.T45007,y=bs_mod,col=month))+facet_grid(. ~ season)+theme_bw()
+   gg_T45007 <- gg_T45007 +scale_color_manual(values = color_month)
+   ggsave("gg_T45007.png", width = 8)
+   show(gg_T45007)
+   
+   
+   
+   
+   
+   
+   
+   
 #}
 
