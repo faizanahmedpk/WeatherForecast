@@ -1,6 +1,7 @@
 rm(list = ls())
 
 library(tidyverse)
+#library(dplyr)
 library(Rglimclim)
 
 #help("Rglimclim-package", help_type = 'html')
@@ -12,7 +13,7 @@ data(GLCdemo)
 
 names(PRECIPITATION)
 #year_max <- 2018
-#year_min <- 1989
+#year_min <- 1989 
 
 Site_4Char <- c("T133", "T137", "T040", "T120","T000", "T001", "T002", "T003", "T004", "T007")
 Station_10 <- STATION_NAMES[1:10]
@@ -24,9 +25,13 @@ PRECIPITATION_New <- PRECIPITATION %>%
          T133 = T36133, T137 = T36137, T040 = T44040, T120 = T44120, T000 = T45000, T001 = T45001,
          T002=T45002,   T003 = T45003, T004 = T45004, T007 = T45007) %>%
   gather(Site, Rain, T133:T007, factor_key = TRUE) %>% 
-  select(Year, Month, Day , Site, Rain) %>%
-  filter(Year %in% c(1989:2018)) %>%
-  arrange(Month, Day)
+  select(Year, Month, Day , Site, Rain) #%>%
+    #filter(PRECIPITATION$year == 1989)
+  #filter(Year %in% c(1989:2018)) %>%
+  #arrange(Month, Day)
+
+PRECIPITATION_New <- PRECIPITATION_New %>% filter(Year == 1989)
+
 
 PRECIPITATION_New$Year <- as.numeric(PRECIPITATION_New$Year)
 PRECIPITATION_New$Month <- as.numeric(PRECIPITATION_New$Month)
@@ -45,7 +50,7 @@ row.names(Precipitation_site) <- Site_4Char
 str(Precipitation_site)
 
 
-Precipiation_region <- data.frame(Region = c(1,2), Name = unique(CatStations$State))
+Precipiation_region <- data.frame(Region = c(1,2), Name = factor(unique(CatStations$State)))
 str(Precipiation_region)
 
 # Writing data to correct formate

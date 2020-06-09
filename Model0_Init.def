@@ -47,4 +47,4 @@ This header is 46 lines long.
 %%%%%%%%%%%%%%%%%%%%LINE NOT CURRENTLY USED%%%%%%%%%%%%%%%%%%%%
 CONSTANT-ONLY MODEL
     0    0.0000               Constant                                
-    8    0.1000    1    1
+    8    1.0000    1    1
