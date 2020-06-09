@@ -1,6 +1,12 @@
 library(ggplot2)
 library(dplyr)
 library(ggfortify)
+<<<<<<< HEAD
+=======
+library(lubridate)
+library(plotly)
+library(scales)
+>>>>>>> 4780b0b27ca64535e7a2098cb718024ab2af092e
 
 # RGENERATEPREC
 
@@ -9,6 +15,7 @@ library(ggfortify)
 
 df_rgenerateprec <- read.csv(file = "df_rgenerateprec.csv", header = T)
 View(df_rgenerateprec)
+<<<<<<< HEAD
 df_rgenerateprec$X<- NULL
 
 #Time Series plot for generated vs observed
@@ -17,6 +24,23 @@ ggdf_rgenerateprec <- ggplot(df_rgenerateprec, aes(x = date, y = value)) +
   facet_wrap(~ variable, nrow = 2) + 
   ggtitle("Time series plot between oberved and generated") + 
   ylab("Rainfall values of observed vs generated in mm") 
+=======
+str(df_rgenerateprec)
+summary(df_rgenerateprec)
+df_rgenerateprec$X<- NULL
+df_rgenerateprec$date <- as_date(df_rgenerateprec$date)
+df_rgenerateprec_ts <- ts(df_rgenerateprec$value, start = 1989, frequency = 4) 
+
+
+autoplot(df_rgenerateprec_ts)
+#Time Series plot for generated vs observed
+ggdf_rgenerateprec <- ggplot(df_rgenerateprec, aes(x = date, y = value, color = variable)) +
+  geom_line() +
+  #facet_wrap(~ variable, nrow = 2) + 
+  ggtitle("Time series plot between oberved and generated for RGENERATEPREC") + 
+  ylab("Rainfall values of observed vs generated in mm") + scale_x_date(breaks = date_breaks("year")) +
+  theme(axis.text.x = element_text(angle=45))
+>>>>>>> 4780b0b27ca64535e7a2098cb718024ab2af092e
 
 ggdf_rgenerateprec
 
@@ -63,6 +87,7 @@ autoplot(stats::pacf(df_rgenerateprec_ts_gen)) + ggtitle("Partial correlation fo
 df_rmawgen <- read.csv("df_rmawgen.csv", header = T)
 View(df_rmawgen)
 df_rmawgen$X <- NULL
+<<<<<<< HEAD
 
 
 ggdf_rmawgen <- ggplot(df_rmawgen, aes(x = date, y = value)) + 
@@ -70,6 +95,20 @@ ggdf_rmawgen <- ggplot(df_rmawgen, aes(x = date, y = value)) +
   facet_wrap(~ variable, nrow = 2) + 
   ggtitle("Time series plot between oberved and generated") + 
   ylab("Rainfall values of observed vs generated in mm") 
+=======
+df_rmawgen$date <- as_date(df_rmawgen$date)
+df_rmawgen_ts <- ts(df_rgenerateprec$value, start = 1989, frequency = 4) 
+
+
+
+
+ggdf_rmawgen <- ggplot(df_rmawgen, aes(x = date, y = value, color = variable)) + 
+  geom_line() +
+  #facet_wrap(~ variable, nrow = 2) + 
+  ggtitle("Time series plot between  oberved and generated for RMAWGEN") + 
+  ylab("Rainfall values of observed vs generated in mm")  + scale_x_date(breaks = date_breaks("year")) +
+  theme(axis.text.x = element_text(angle=45))
+>>>>>>> 4780b0b27ca64535e7a2098cb718024ab2af092e
 
 ggdf_rmawgen
 
@@ -93,6 +132,7 @@ autoplot(stats::pacf(df_rmawgen_ts_gen)) + ggtitle("Partial correlation for gene
 #data_boxplot <- data.frame(date = df_rmawgen$date, rgenerate = df_rgenerateprec$value)
 #data_boxplot_rmawgen <- df_rmawgen %>% filter(variable == "obs") %>% dplyr::select(date, value)
  
+<<<<<<< HEAD
 # boxplot for rmawgen gen vs observed
 
 #str(df_rmawgen)
@@ -147,6 +187,15 @@ autoplot(rmawgen.ecdf) + xlab("rmawgen") + ggtitle("Emperical density plot for r
 
 rgenerateprec.ecdf <- ecdf(data_all$rgenerateprec)
 autoplot(rgenerateprec.ecdf) + xlab("rgenerateprec") + ggtitle("Emperical density plot for rgenerateprec data")
+=======
+
+
+str(df_rmawgen)
+ggbox_rmawgen <- ggplot(df_rmawgen , aes(x = factor(variable), y = value)) + geom_boxplot()
+
+ggbox_rmawgen
+
+>>>>>>> 4780b0b27ca64535e7a2098cb718024ab2af092e
 
 
 
