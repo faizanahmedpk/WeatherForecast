@@ -105,8 +105,8 @@ prec_mes <- generationP01_prec$prec_mes
 
 prec_gen <- list(P03GPCA=generationP03GPCA_prec$prec_gen,
                  P01GPCA=generationP01GPCA_prec$prec_gen,
-                 P03=generationP03GPCA_prec$prec_gen,
-                 P01=generationP01GPCA_prec$prec_gen)
+                 P03=generationP03_prec$prec_gen,
+                 P01=generationP01_prec$prec_gen)
 
 
 # season 

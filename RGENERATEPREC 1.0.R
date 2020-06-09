@@ -2,8 +2,11 @@
 #RGeneratePrecFunction <- function(){
   rm(list=ls())
   
-  
+  library(tidyverse)
+  library(lubridate)
+  library(reshape2)
   library(RGENERATEPREC)
+  
   load('BullooModInp.RData')
   
   
@@ -111,17 +114,14 @@
   #Quantile-quantile plots for precipitation time series both station are created as follows
   #(if not specified, measurment units are millimiters):
     
-  library(dplyr)
-  library(ggplot2)
-  library(lubridate)
-  library(reshape2)
+  
   
   str(prec_mes)
   
   str(prec_gen)
   
   
-  df <- list(obs=prec_mes[names(prec_gen)],gen=prec_gen)
+  df <- list(obs=prec_mes[,names(prec_gen)],gen=prec_gen)
   for ( i in 1:length(df)) {
     df[[i]]$date <- as.Date(origin)+days(1:nrow(df[[i]]))-1
   }
